@@ -8,12 +8,11 @@
     // Add a click event listener to the "searchAllBtn" button
     searchAllBtn.addEventListener("click", async function showAllCountries() {
         try {
-            // URL of the API endpoint to fetch all countries
-            const url = "https://restcountries.com/v3.1/all";
-            // Fetch the data from the API
-            const response = await fetch(url);
+
+            const response = getJson();
             // Convert the response to JSON format
             const countries = await response.json();
+
             // Display the countries in the UI
             displayCountries(countries);
 
@@ -60,10 +59,6 @@
             // Display the specific countries in the UI
             displayCountries(countries);
 
-            // Display the specific countries in the UI
-            const countriesAmount = countries.length;
-            // Get the total population of specific countries
-            const countriesPopulation = totalPopulation(countries);
             // Show the data in paragraphs
             showDataInParagraphs(countries);
         }
@@ -120,12 +115,12 @@
 
         const avgPopulation = (countriesPopulation / countriesAmount).toFixed(2);
         const countriesAmountPar = document.getElementById("countriesAmountPar");
-        const totalPopulationParagraph  = document.getElementById("totalPopulationPar");
+        const totalPopulationParagraph = document.getElementById("totalPopulationPar");
         const averagePopulationParagraph = document.getElementById("averagePopulationPar");
 
         // Update the content of the HTML elements with the appropriate data
         countriesAmountPar.innerHTML = "Total amount of countries: " + countriesAmount;
-        totalPopulationParagraph .innerHTML = "Total countries population: " + countriesPopulation;
+        totalPopulationParagraph.innerHTML = "Total countries population: " + countriesPopulation;
         averagePopulationParagraph.innerHTML = "Average population of countries: " + avgPopulation;
 
         // Set the visibility of the HTML elements to make them visible
@@ -183,7 +178,13 @@
     // Calculate the region data based on the countries array.
     function showCurrenciesTable(countries) {
         const currencyTableBody = document.getElementById("currencyTableBody");
-        currencyTableBody.innerHTML = ''; // Clear table at start
+
+
+        // currencyTableBody.innerHTML = ''; // Clear table at start
+        while (currencyTableBody.firstChild) {
+            currencyTableBody.removeChild(currencyTableBody.firstChild);
+        }
+
 
         const data = currencyCalc(countries);
 
@@ -223,6 +224,15 @@
         }
 
         return resultData;
+    }
+
+    async function getJson() {
+        // URL of the API endpoint to fetch all countries
+        const url = "https://restcountries.com/v3.1/all";
+        // Fetch the data from the API
+        const response = await fetch(url);
+
+        return response;
     }
 
 
