@@ -9,7 +9,7 @@
     searchAllBtn.addEventListener("click", async function showAllCountries() {
         try {
 
-            const response = getJson();
+            const response = await getJson();
             // Convert the response to JSON format
             const countries = await response.json();
 
