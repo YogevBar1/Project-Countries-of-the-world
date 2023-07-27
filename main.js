@@ -3,6 +3,7 @@
 'use strict';
 
 (() => {
+    
     // Get the "searchAllBtn" element by its ID
     const searchAllBtn = document.getElementById("searchAllBtn");
     // Add a click event listener to the "searchAllBtn" button
